@@ -5,4 +5,7 @@ from login.views import *
 urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^index$', index, name='index'),
+
+    url(r'^signin$', signin, name='signin'),
+    url(r'^signup$', signup, name='signup'),
 ]
