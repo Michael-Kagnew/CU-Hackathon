@@ -23,7 +23,7 @@ class Consultant(models.Model):
 
     def __str__(self):
         #How objects of this class will appear in admin pannel
-        return "{0},{1} : {2}" .format(self.first_name, self.last_name, self.email)
+        return "{0}, {1} : {2}" .format(self.first_name, self.last_name, self.email)
 
 class Client(models.Model):
     first_name = models.CharField(max_length = 64)
@@ -32,3 +32,7 @@ class Client(models.Model):
 
     website = models.CharField(max_length = 128)
     job_tags = models.TextField(blank=True)
+
+    def __str__(self):
+        #How objects of this class will appear in admin pannel
+        return "{0}, {1} : {2}" .format(self.first_name, self.last_name, self.email)
