@@ -6,7 +6,7 @@ ch_status = (
     ('Closed', 'Closed')
 )
 
-class Contracts(models.Model):
+class Contract(models.Model):
     title = models.CharField(max_length=128)
     summary = models.TextField(blank=True)
     salary = models.CharField(max_length=128, blank=True)
