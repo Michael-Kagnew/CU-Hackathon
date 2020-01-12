@@ -16,13 +16,15 @@ def index(request):
 
     if ref == 1: 
         # Search contract for clients
-        contracts = Contract.objects.filter(client=profile)
+        contracts = Contract.objects.filter(client=profile).filter(status="Open")
         pending = []
+        completed = Contract.objects.filter(client=profile).filter(status="Closed")
 
     elif ref == 0:
         # search for contract for consultants
         contracts = []
         pending = []
+        completed = []
 
         for contract in Contract.objects.all():
             if profile in contract.team.all():
@@ -37,6 +39,7 @@ def index(request):
     context = {
         "contracts": contracts,
         "pending": pending,
+        "completed": completed,
         "all_contracts": Contract.objects.all(),
         "ref": ref,
         'msg': msg
@@ -67,10 +70,18 @@ def view_contract(request, id):
     contract = get_object_or_404(Contract, pk=id)
     profile, ref = get_profile(request)
 
+    if contract.client != profile:
+        return redirect(index)
+
+    status = 0
+    if contract.status == "Closed":
+        status = 1
+
     context = {
         'contract': contract,
         'msg': '',
-        'ref': ref
+        'ref': ref,
+        'status': status
     }
 
     if ref == 0:
@@ -107,6 +118,14 @@ def approve(request, id):
             break
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def complete(request, id):
+    contract = get_object_or_404(Contract, pk=id)
+
+    contract.status = "Closed"
+    contract.save()
+
+    return redirect(index)
 
 # HELPERS
 def get_profile(request):

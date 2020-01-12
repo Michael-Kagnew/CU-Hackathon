@@ -11,4 +11,5 @@ urlpatterns = [
 
     url(r'^apply/(?P<id>\d+)$', apply, name='apply'),
     url(r'^approve/(?P<id>\d+)$', approve, name='approve'),
+    url(r'^complete/(?P<id>\d+)$', complete, name='complete'),
 ]

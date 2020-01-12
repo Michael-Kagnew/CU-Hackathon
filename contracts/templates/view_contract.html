@@ -21,7 +21,7 @@
 
 
 {% if ref == 1 %}
-
+{% if status == 0 %}
 <div class="row">
     <! Applicants --->
     <div class="col-sm-8">
@@ -71,6 +71,12 @@
         </table>
     </div>
 </div>
+{% endif %}
+
+{% if status == 0 %}
+    <a href="{% url 'complete' contract.pk %}" class="btn btn-success">Complete</a>
+{% endif %}
+
 {% endif %}
 <br>
 
