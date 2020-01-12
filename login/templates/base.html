@@ -23,7 +23,9 @@
                 <a class="p-2 text-dark" href="/profiles">Profiles</a>
             </nav>
 
-            <a class="btn btn-outline-dark" href="/admin">Admin</a>
+            {% if user.is_superuser %}
+                <a class="btn btn-outline-dark" href="/admin">Admin</a>
+            {% endif %}
 
         </div>
 
