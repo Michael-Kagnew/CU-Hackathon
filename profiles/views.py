@@ -49,7 +49,13 @@ def dashboard(request):
 
     if ref == 0:
         # Consultants
-        print(git_userinfo(profile.github_link)['Repositories'])
+        if git_userinfo(profile.github_link) is not None:
+            repos = git_userinfo(profile.github_link)['Repositories']
+
+            if len(repos) > 5:
+                repos = repos[0:5]
+        else:
+            repos = []
 
         context = {
             "name": profile.first_name + " " + profile.last_name,
@@ -58,7 +64,7 @@ def dashboard(request):
             "bio": profile.bio,
             "linkedin": profile.linkedin_link,
             "github": profile.github_link,
-            'repos': git_userinfo(profile.github_link)['Repositories'],
+            'repos': repos,
             "type": "consultant"
         }
     elif ref == 1:

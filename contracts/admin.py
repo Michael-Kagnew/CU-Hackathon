@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Contract
+from .models import Contract, JobTag
 
-@admin.register(Contract)
+@admin.register(Contract, JobTag)
 class ViewAdmin(admin.ModelAdmin):
     pass

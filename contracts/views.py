@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import ContractForm
 from .models import Contract
@@ -34,13 +34,22 @@ def create_contract(request):
             new_contract.client = profile
             new_contract.status = "Open"
             new_contract.save()
-            return redirect('index')
+            return redirect(index)
     else:
         form = ContractForm()
 
     return render(request, "contract_form.html", {'form': form})
 
-#helpers
+def view_contract(request, id):
+    contract = get_object_or_404(Contract, pk=id)
+
+    context = {
+        'contract': contract
+    }
+
+    return render(request, 'view_contract.html', context=context)
+
+# HELPERS
 def get_profile(request):
     profile, ref, status = get_profile_status(request)
 
