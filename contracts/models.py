@@ -1,4 +1,5 @@
 from django.db import models
+from profiles.models import Client, Consultant
 
 ch_status = (
     ('Open', 'Open'),
@@ -14,9 +15,9 @@ class Contract(models.Model):
     skills = models.TextField(blank=True)
     jobTags = models.TextField(blank=True)
 
-    client = models.CharField(max_length=128)
-    applicants = models.TextField(blank=True)
-    team = models.TextField(blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
+    applicants = models.ManyToManyField(Consultant, blank=True, related_name="applicants")
+    team = models.ManyToManyField(Consultant, blank=True, related_name="team")
 
     status = models.CharField(max_length=64, choices=ch_status)
 
