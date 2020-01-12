@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+
+#test p {
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+</style>
+<h2> About  </h2>
+<span class="lead">
+    <div id="test"><p>Provides a platform for clients to meet consultants who can provide various services. Clients can create contracts (job postings) which consultants can apply to. 
+ In today’s world, there are thousands of aspiring software developers with the proper skills, but not the proper connections. Consult X bridges this gap by allowing software developers to meet with employers in the form of contracts. 
+</p></div></span>
+
+
+
+{% endblock %}

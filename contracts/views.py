@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 
 from .forms import ContractForm
 from .models import Contract
@@ -10,23 +10,36 @@ prof_type = [Consultant, Client]
 def index(request):
     if not check_auth(request):
         return redirect('signin')
-    
+
     profile, ref = get_profile(request)
+    msg = 0
+
     if ref == 1: 
         # Search contract for clients
         contracts = Contract.objects.filter(client=profile)
-    
+        pending = []
+
     elif ref == 0:
         # search for contract for consultants
-        contracts= []
+        contracts = []
+        pending = []
+
         for contract in Contract.objects.all():
             if profile in contract.team.all():
                 contracts.append(contract)
 
+            elif profile in contract.applicants.all():
+                pending.append(contract)
+
+        if len(contracts) == 0:
+            msg = 'No contracts yet.'
+
     context = {
         "contracts": contracts,
+        "pending": pending,
         "all_contracts": Contract.objects.all(),
-        "ref": ref
+        "ref": ref,
+        'msg': msg
     }
 
     return render(request, 'contracts.html', context=context)
@@ -54,22 +67,46 @@ def view_contract(request, id):
     contract = get_object_or_404(Contract, pk=id)
     profile, ref = get_profile(request)
 
-    msg = ''
+    context = {
+        'contract': contract,
+        'msg': '',
+        'ref': ref
+    }
 
     if ref == 0:
         if profile in contract.team.all():
-            msg = 'You are on the team.'
+            context['msg'] = 'You are on the team.'
         elif profile in contract.applicants.all():
-            msg = 'You have already applied to this position.'
+            context['msg'] = 'You have already applied to this position.'
         else:
-            msg = 1
-
-    context = {
-        'contract': contract,
-        'msg': msg
-    }
+            context['msg'] = 1
+    else:
+        context['applicants'] = contract.applicants.all()
+        context['team'] = contract.team.all()
 
     return render(request, 'view_contract.html', context=context)
+
+def apply(request, id):
+    contract = get_object_or_404(Contract, pk=id)
+    profile, ref = get_profile(request)
+
+    contract.applicants.add(profile)
+
+    return redirect(index)
+
+def approve(request, id):
+    consultant = get_object_or_404(Consultant, pk=id)
+    profile, ref = get_profile(request)
+
+    contracts = Contract.objects.filter(client=profile)
+
+    for contract in contracts:
+        if consultant in contract.applicants.all():
+            contract.team.add(consultant)
+            contract.applicants.remove(consultant)
+            break
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 # HELPERS
 def get_profile(request):

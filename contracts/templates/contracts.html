@@ -17,28 +17,25 @@
 
 
 <div class="row" >
-
-    {% for contract in contracts %}
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ contract.title }}</h5>
-                <p style="margin-bottom: 3px;" class="card-text">Pay: {{ contract.salary }}</p>
-                <p style="margin-bottom: 17px;" class="card-text">Top skills</p>
-                <a href="{% url 'view_contract' contract.pk %}" class="btn btn-primary">More details</a>
-            </div>
+{% for contract in contracts %}
+<div class="col-sm-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ contract.title }}</h5>
+            <p style="margin-bottom: 3px;" class="card-text">Pay: {{ contract.salary }}</p>
+            <p style="margin-bottom: 17px;" class="card-text">In Progress</p>
+            <a href="{% url 'view_contract' contract.pk %}" class="btn btn-primary">More details</a>
         </div>
     </div>
-    {% endfor %}
-
+</div>
+{% endfor %}
 </div>
 
 <br>
 
-<h4>All Contracts</h4>
-
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-7">
+        <h4>All Contracts</h4>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -61,6 +58,32 @@
             </tbody>
         </table>
     </div>
+
+    {% if ref == 0 %}
+    <div class="col-sm-5">
+        <h4>Pending Contracts</h4>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Field</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for contract in pending %}
+                <tr>
+                    <td><a href="{% url 'view_contract' contract.pk %}">{{ contract.title }}</a></td>
+                    <td>{{ contract.client.company_name }}</td>
+                    <td>{{ contract.jobTags }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
 </div>
 
 {% endblock %}
