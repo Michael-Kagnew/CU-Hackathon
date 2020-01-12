@@ -87,6 +87,8 @@ def signout(request):
     logout(request)
     return redirect('signin')
 
+def about(request):
+    return render(request, "about.html")
 # HELPERS
 def check_auth(request):
     if not request.user.is_authenticated:
