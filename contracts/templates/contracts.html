@@ -18,6 +18,8 @@
 
 <div class="row" >
 
+    {% if msg == 0 %}
+
     {% for contract in contracts %}
     <div class="col-sm-3">
         <div class="card">
@@ -30,6 +32,12 @@
         </div>
     </div>
     {% endfor %}
+
+    {% else %}
+
+    <h5 class="lead">{{ msg }}</h5>
+
+    {% endif %}
 
 </div>
 

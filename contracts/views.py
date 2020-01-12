@@ -10,23 +10,30 @@ prof_type = [Consultant, Client]
 def index(request):
     if not check_auth(request):
         return redirect('signin')
-    
+
     profile, ref = get_profile(request)
+    msg = 0
+
     if ref == 1: 
         # Search contract for clients
         contracts = Contract.objects.filter(client=profile)
     
     elif ref == 0:
         # search for contract for consultants
-        contracts= []
+        contracts = []
+
         for contract in Contract.objects.all():
             if profile in contract.team.all():
                 contracts.append(contract)
 
+        if len(contracts) == 0:
+            msg = 'No contracts yet.'
+
     context = {
         "contracts": contracts,
         "all_contracts": Contract.objects.all(),
-        "ref": ref
+        "ref": ref,
+        'msg': msg
     }
 
     return render(request, 'contracts.html', context=context)
