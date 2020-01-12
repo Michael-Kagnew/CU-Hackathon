@@ -10,7 +10,7 @@ ch_status = (
 class Contract(models.Model):
     title = models.CharField(max_length=128)
     summary = models.TextField(blank=True)
-    salary = models.CharField(max_length=128, blank=True)
+    salary = models.CharField(max_length=128)
 
     skills = models.TextField(blank=True)
     jobTags = models.TextField(blank=True)

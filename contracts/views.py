@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
+
 from .forms import ContractForm
+from .models import Contract
+
 from profiles.models import Consultant, Client
 
 prof_type = [Consultant, Client]
@@ -7,8 +10,16 @@ prof_type = [Consultant, Client]
 def index(request):
     if not check_auth(request):
         return redirect('signin')
+    
+    profile, ref = get_profile(request)
 
-    return render(request, 'contracts.html')
+    contracts = Contract.objects.filter(client=profile)
+
+    context = {
+        "contracts": contracts
+    }
+
+    return render(request, 'contracts.html', context=context)
 
 def create_contract(request):
     profile, ref = get_profile(request)
@@ -28,8 +39,6 @@ def create_contract(request):
         form = ContractForm()
 
     return render(request, "contract_form.html", {'form': form})
-
-
 
 #helpers
 def get_profile(request):
