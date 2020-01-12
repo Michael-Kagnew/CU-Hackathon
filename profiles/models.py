@@ -36,6 +36,8 @@ class Client(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
 
+    bio = models.TextField(blank=True)
+
     company_name = models.CharField(max_length=64, null=True)
     email = models.CharField(max_length=64, blank=True)
     website = models.CharField(max_length=128, blank=True)

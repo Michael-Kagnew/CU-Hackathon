@@ -25,7 +25,7 @@ def index(request):
         print('Profile needs to be created')
         return redirect('edit_profile')
 
-    return render(request, 'profiles.html')
+    return redirect('dashboard')
 
 def edit_profile(request):
     profile, ref = get_profile(request)
@@ -40,6 +40,31 @@ def edit_profile(request):
         form = prof_forms[ref](instance=profile)
 
     return render(request, prof_forms_html[ref], {'form': form})
+
+def dashboard(request):
+    profile, ref = get_profile(request)
+
+    if ref == 0:
+        # Consultants
+        context = {
+            "name": profile.first_name + " " + profile.last_name,
+            "email": profile.email,
+            "status": profile.status,
+            "bio": profile.bio,
+            "linkedin": profile.linkedin_link,
+            "github": profile.github_link,
+            "type": "consultant"
+        }
+    elif ref == 1:
+        # Clients
+        context = {
+            "name": profile.company_name,
+            "email": profile.email,
+            "bio": profile.bio,
+            "website": profile.website,
+            "type": "client"
+        }
+    return render(request, 'profiles.html', context=context)
 
 # Helpers
 def get_profile(request):

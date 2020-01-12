@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^index$', index, name='index'),
 
     url(r'^edit_profile$', edit_profile, name='edit_profile'),
+    url(r'^dashboard$', dashboard, name='dashboard'),
 ]
