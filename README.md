@@ -1,5 +1,4 @@
 # ConsultX
-Code from Hackathon done on January 11th
 
 > **Consult X** is a freelancing web marketplace for aspiring software developers, developed by **Michael Kagnew**, **Shrish Mohapatra**, **Sundar Vengadeswaran**, and **Yousef Yassin** for cuHacking 2020, January 11th.
 
