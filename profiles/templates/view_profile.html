@@ -8,12 +8,11 @@
           <img class="card-img-top" src="https://images.emojiterra.com/twitter/v12/512px/1f418.png" alt="Card image" style="width:80%">
       </div>
       <div class="col-sm-4">
-          <h4 class="card-title">John Doe</h4>
-          <h5 class="email">JohnDoe@gmail.com</h5>
-          <p class="status">Busy</p>
-          <p class="LinkedIn">LinkedIn</p>
-          <p class="github">Github</p>
-          <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+          <h4 class="card-title">{{ profile.first_name }} {{ profile.last_name }}</h4>
+          <h5 class="email">{{ profile.email }}</h5>
+          <p class="status">Status: {{ profile.status }}</p>
+          <p>{{ profile.linkedin_link }}</p>
+          <p>{{ profile.github_link }}</p>
       </div>
       <div class="col-sm-4">
           <div class="container">
@@ -25,22 +24,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for repo in repos %}
+
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Repository 1</td>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ repo }}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Repository 2</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td >Repository 3</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td >Repository 4</td>
-                  </tr>
+
+                  {% endfor %}
                 </tbody>
               </table>
           </div>
@@ -56,7 +47,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Bio</h5>
-              <p class="card-text">shit here</p>
+              <p class="card-text">{{ profile.bio }}</p>
             </div>
           </div>
         </div>
@@ -64,7 +55,11 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Skills</h5>
-              <p class="card-text">shit here</p>
+              <ul>
+                {% for skill in skills %}
+                <li>{{ skill }}</li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
         </div>

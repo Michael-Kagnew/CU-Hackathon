@@ -70,9 +70,6 @@ def view_contract(request, id):
     contract = get_object_or_404(Contract, pk=id)
     profile, ref = get_profile(request)
 
-    if contract.client != profile:
-        return redirect(index)
-
     status = 0
     if contract.status == "Closed":
         status = 1

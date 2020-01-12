@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Consultant, Client
 from .forms import ConsultantForm, ClientForm
@@ -44,9 +44,27 @@ def edit_profile(request):
 
     return render(request, prof_forms_html[ref], {'form': form})
 
-def view_profile(request):
-    return render(request, 'view_profile.html')
-    
+def view_profile(request, id):
+    consultant = get_object_or_404(Consultant, pk=id)
+
+    if git_userinfo(consultant.github_link) is not None:
+        repos = git_userinfo(consultant.github_link)['Repositories']
+
+        if len(repos) > 5:
+            repos = repos[0:5]
+    else:
+        repos = []
+
+    skills = consultant.skills.all()        
+
+    context = {
+        'profile': consultant,
+        'skills': skills,
+        'repos': repos
+    }
+
+    return render(request, 'view_profile.html', context=context)
+
 def dashboard(request):
     profile, ref = get_profile(request)
 
