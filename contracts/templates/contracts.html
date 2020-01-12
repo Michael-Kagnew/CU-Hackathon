@@ -4,7 +4,7 @@
 <! Header Area ->
 <div class="row d-flex justify-content-end">
     <div class="mr-auto p-2">
-        <h2> Contracts </h2>
+        <h2>My Contracts </h2>
     </div>
 
     {% if ref == 1 %}
@@ -82,6 +82,30 @@
             </tbody>
         </table>
     </div>
+
+    {% else %}
+
+    <div class="col-sm-5">
+        <h4>Completed Contracts</h4>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Field</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for contract in completed %}
+                <tr>
+                    <td><a href="{% url 'view_contract' contract.pk %}">{{ contract.title }}</a></td>
+                    <td>{{ contract.jobTags }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     {% endif %}
 
 </div>
