@@ -50,8 +50,11 @@ def view_profile(request, id):
     if git_userinfo(consultant.github_link) is not None:
         repos = git_userinfo(consultant.github_link)['Repositories']
 
-        if len(repos) > 5:
-            repos = repos[0:5]
+        if repos is not None:
+            if len(repos) > 5:
+                repos = repos[0:5]
+        else:
+            repos = []
     else:
         repos = []
 
@@ -73,8 +76,11 @@ def dashboard(request):
         if git_userinfo(profile.github_link) is not None:
             repos = git_userinfo(profile.github_link)['Repositories']
 
-            if len(repos) > 5:
-                repos = repos[0:5]
+            if repos is not None:
+                if len(repos) > 5:
+                    repos = repos[0:5]
+            else:
+                repos = []
         else:
             repos = []
 
