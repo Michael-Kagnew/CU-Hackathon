@@ -8,4 +8,7 @@ urlpatterns = [
 
     url(r'^create_contract$', create_contract, name='create_contract'),
     url(r'^view_contract/(?P<id>\d+)$', view_contract, name='view_contract'),
+
+    url(r'^apply/(?P<id>\d+)$', apply, name='apply'),
+    url(r'^approve/(?P<id>\d+)$', approve, name='approve'),
 ]
