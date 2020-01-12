@@ -3,13 +3,23 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 
 from .forms import SigninForm, SignupForm
+
 from profiles.models import Consultant, Client
+from profiles.views import get_profile_status
 
 def index(request):
     if not check_auth(request):
         return redirect('signin')
 
-    print('login')
+    print('dashboard')
+
+    # check profile type
+    if not request.user.is_superuser:
+        profile, ref, status = get_profile_status(request)
+
+        if not status:
+            print('Profile needs to be created')
+            return redirect('edit_profile')
 
     return render(request, 'index.html')
 
