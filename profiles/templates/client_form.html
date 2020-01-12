@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+<h2>Client Profile</h2>
+
+<form method="POST" class="needs-validation">
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-4">
+            {{ form.first_name|as_crispy_field }}
+        </div>
+        <div class="col-4">
+            {{ form.last_name|as_crispy_field }}
+        </div>
+        <div class="col-4">
+            {{ form.company_name|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            {{ form.email|as_crispy_field }}
+        </div>
+        <div class="col-6">
+            {{ form.website|as_crispy_field }}
+        </div>
+    </div>
+
+    {{ form.job_tags|as_crispy_field }}
+
+    <button type="submit" class="btn btn-success" name="button">Submit</button>
+</form>
+
+{% endblock %}
