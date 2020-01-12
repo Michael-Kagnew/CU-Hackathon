@@ -12,11 +12,21 @@ def index(request):
         return redirect('signin')
     
     profile, ref = get_profile(request)
-
-    contracts = Contract.objects.filter(client=profile)
+    if ref == 1: 
+        # Search contract for clients
+        contracts = Contract.objects.filter(client=profile)
+    
+    elif ref == 0:
+        # search for contract for consultants
+        contracts= []
+        for contract in Contract.objects.all():
+            if profile in contract.team.all():
+                contracts.append(contract)
 
     context = {
-        "contracts": contracts
+        "contracts": contracts,
+        "all_contracts": Contract.objects.all(),
+        "ref": ref
     }
 
     return render(request, 'contracts.html', context=context)
@@ -25,7 +35,7 @@ def create_contract(request):
     profile, ref = get_profile(request)
 
     if ref == 0:
-        return redirect("index")
+        return redirect(index)
 
     if request.method == 'POST':
         form = ContractForm(request.POST)
@@ -42,9 +52,21 @@ def create_contract(request):
 
 def view_contract(request, id):
     contract = get_object_or_404(Contract, pk=id)
+    profile, ref = get_profile(request)
+
+    msg = ''
+
+    if ref == 0:
+        if profile in contract.team.all():
+            msg = 'You are on the team.'
+        elif profile in contract.applicants.all():
+            msg = 'You have already applied to this position.'
+        else:
+            msg = 1
 
     context = {
-        'contract': contract
+        'contract': contract,
+        'msg': msg
     }
 
     return render(request, 'view_contract.html', context=context)

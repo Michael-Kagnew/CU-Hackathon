@@ -21,7 +21,7 @@ def index(request):
             print('Profile needs to be created')
             return redirect('edit_profile')
 
-    return render(request, 'index.html')
+    return redirect('dashboard')
 
 def signin(request):
     print('signin')
@@ -42,7 +42,7 @@ def signin(request):
 
             print('woah, user signed in')
 
-            return redirect('/index')
+            return redirect('dashboard')
     else:
         form = SigninForm()
 
@@ -77,7 +77,7 @@ def signup(request):
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
 
-            return redirect('index')
+            return redirect('dashboard')
     else:
         form = SignupForm()
 

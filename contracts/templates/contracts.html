@@ -30,4 +30,34 @@
 
 </div>
 
+<br>
+
+<h4>All Contracts</h4>
+
+<div class="row">
+    <div class="col-sm-8">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Field</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for contract in all_contracts %}
+                <tr>
+                    <td><a href="{% url 'view_contract' contract.pk %}">{{ contract.title }}</a></td>
+                    <td>{{ contract.client.company_name }}</td>
+                    <td>{{ contract.salary }}</td>
+                    <td>{{ contract.jobTags }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% endblock %}

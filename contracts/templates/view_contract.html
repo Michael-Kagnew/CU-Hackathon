@@ -9,5 +9,16 @@
     <p>{{ contract.summary }}</p>
 </span>
 
+{% if msg == 1 %}
+
+<a href="#" class="btn btn-primary">Apply</a>
+
+{% else %}
+
+<h4 class="lead">{{ msg }}</h4>
+
+{% endif %}
+
+<br>
 
 {% endblock %}
