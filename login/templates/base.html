@@ -37,8 +37,13 @@
 
             <! Footer --->
             <footer class="border-top"><br>
+                <p class="float-right text-muted">
+                    {% if user.get_username|length != 0 %}
+                        Logged in as <a href="/signin"><b>{{ user.get_username }}</b></a>
+                    {% endif %}
+                </p>
                 <p class="text-muted">
-                    developed by someone
+                    Developed by Michael, Shrish, Sundar, and Yousef
                 </p>
             </footer>
 

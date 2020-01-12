@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 
 from .forms import SigninForm, SignupForm
+from profiles.models import Consultant, Client
 
 def index(request):
     if not check_auth(request):
@@ -22,11 +24,15 @@ def signin(request):
             raw_username = form.cleaned_data['username']
 
             user = authenticate(username=raw_username, password=raw_password)
+
+            if user is None:
+                return redirect('signup')
+
             login(request, user)
 
             print('woah, user signed in')
 
-            return redirect('index')
+            return redirect('/index')
     else:
         form = SigninForm()
 
@@ -40,6 +46,22 @@ def signup(request):
 
         if form.is_valid():
             user = form.save()
+
+            account_type = form.cleaned_data['account_type']
+            email = form.cleaned_data['email']
+
+            if account_type == 'Consultant':
+                # consultant profile
+                consultant = Consultant()
+                consultant.user = user
+                consultant.email = email
+                consultant.save()
+            else:
+                # client profile
+                client = Client()
+                client.user = user
+                client.email = email
+                client.save()
 
             raw_password = form.cleaned_data['password1']
             user = authenticate(username=user.username, password=raw_password)
