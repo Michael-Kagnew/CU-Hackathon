@@ -7,6 +7,12 @@ ch_status = (
 )
 
 # Create your models here.
+class Skill(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
 class Consultant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
@@ -20,9 +26,7 @@ class Consultant(models.Model):
 
     status = models.CharField(max_length=64, choices=ch_status, default = "Open")
 
-    job_tags = models.TextField(blank=True)
-    skills = models.TextField(blank=True)
-    previous_contracts = models.TextField(blank=True)
+    skills = models.ManyToManyField(Skill, blank=True)
 
     def __str__(self):
         if self.first_name == '':
@@ -36,11 +40,11 @@ class Client(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
 
+    bio = models.TextField(blank=True)
+
     company_name = models.CharField(max_length=64, null=True)
     email = models.CharField(max_length=64, blank=True)
     website = models.CharField(max_length=128, blank=True)
-
-    job_tags = models.TextField(blank=True)
 
     def __str__(self):
         if self.first_name == '':

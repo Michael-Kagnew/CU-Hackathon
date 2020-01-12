@@ -8,4 +8,5 @@ urlpatterns = [
 
     url(r'^signin$', signin, name='signin'),
     url(r'^signup$', signup, name='signup'),
+    url(r'^signout$', signout, name='signout'),
 ]

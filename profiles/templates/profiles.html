@@ -1,6 +1,96 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<p>this the profiles app</p>
+<h2>Dashboard</h2>
+<div class="row" >
+    <div class="col-sm-4">
+        <img class="card-img-top" src="https://images.emojiterra.com/twitter/v12/512px/1f418.png" alt="Card image" style="width:80%">
+    </div>
+    <div class="col-sm-4">
+
+        {% if type == "consultant" %}
+
+        <! Consultant --->
+        <h4 class="card-title">{{ name }}</h4>
+        <h5 class="email">{{ email }}</h5>
+        <p class="status">{{ status }}</p>
+        <p class="LinkedIn">{{ linkedin }}</p>
+        <p class="github">{{ github }}</p>
+        <p class="card-text">{{ bio }}</p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+
+        {% else %}
+
+        <! Client --->
+        <h4 class="card-title">{{ name }}</h4>
+        <h5 class="email">{{ email }}</h5>
+        <p class="website">{{ website }}</p>
+        <p class="card-text">{{ bio }}</p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+
+        {% endif %}
+
+    </div>
+    <div class="col-sm-4">
+        <div class="container">
+            {% if type == "consultant" %}
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"> </th>
+                  <th scope="col">Repositories</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {% for repo in repos %}
+
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ repo }}</td>
+                </tr>
+
+                {% endfor %}
+
+              </tbody>
+            </table>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Contracts</h5>
+        <p class="card-text">Explore latest contracts here</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Clients</h5>
+        <p class="card-text">Discover new clients here</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Consultants</h5>
+        <p class="card-text">Meet innovative consultants here</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
