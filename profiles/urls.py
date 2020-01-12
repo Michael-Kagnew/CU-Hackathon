@@ -8,4 +8,6 @@ urlpatterns = [
 
     url(r'^edit_profile$', edit_profile, name='edit_profile'),
     url(r'^dashboard$', dashboard, name='dashboard'),
+    url(r'^view_profile$', view_profile, name='view_profile'),
+
 ]

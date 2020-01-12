@@ -44,6 +44,9 @@ def edit_profile(request):
 
     return render(request, prof_forms_html[ref], {'form': form})
 
+def view_profile(request):
+    return render(request, 'view_profile.html')
+    
 def dashboard(request):
     profile, ref = get_profile(request)
 
