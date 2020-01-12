@@ -7,9 +7,12 @@
         <h2> Contracts </h2>
     </div>
 
-    <div class="p-2">
-        <a href="{% url 'create_contract' %}" class="btn btn-primary">Create</a>
-    </div>
+    {% if ref == 1 %}
+        <div class="p-2">
+            <a href="{% url 'create_contract' %}" class="btn btn-primary">Create</a>
+        </div>
+    {% endif %}
+
 </div>
 
 

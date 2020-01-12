@@ -86,9 +86,11 @@ def git_getuserinfo2(URL):
 
     data = soup.prettify()
 
+    """
     f = open('data.txt', 'w', encoding='utf-8')
     f.write(data)
     f.close()
+    """
 
     #get avi link since github uses numbers inconsistently
     counter = 0

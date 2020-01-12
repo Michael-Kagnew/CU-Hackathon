@@ -12,21 +12,23 @@
 
         <! Consultant --->
         <h4 class="card-title">{{ name }}</h4>
-        <h5 class="email">{{ email }}</h5>
-        <p class="status">{{ status }}</p>
+        <h5 class="text-secondary">Consultant</h5>
+        <br>
+        <p class="email">Email: {{ email }}</p>
+        <p class="status">Status: {{ status }}</p>
         <p class="LinkedIn">{{ linkedin }}</p>
         <p class="github">{{ github }}</p>
         <p class="card-text">{{ bio }}</p>
-        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
 
         {% else %}
 
         <! Client --->
         <h4 class="card-title">{{ name }}</h4>
-        <h5 class="email">{{ email }}</h5>
-        <p class="website">{{ website }}</p>
+        <h5 class="text-secondary">Client</h5>
+        <br>
+        <p class="email">Email: {{ email }}</p>
+        <p class="website">Website: {{ website }}</p>
         <p class="card-text">{{ bio }}</p>
-        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
 
         {% endif %}
 
@@ -69,25 +71,25 @@
       <div class="card-body">
         <h5 class="card-title">Contracts</h5>
         <p class="card-text">Explore latest contracts here</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/contracts" class="btn btn-primary">View Contracts</a>
       </div>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Clients</h5>
-        <p class="card-text">Discover new clients here</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">Edit Profile</h5>
+        <p class="card-text">Make changes to your profile.</p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
       </div>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Consultants</h5>
-        <p class="card-text">Meet innovative consultants here</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">Learn More</h5>
+        <p class="card-text">Learn how the application worls</p>
+        <a href="#" class="btn btn-primary">Learn More</a>
       </div>
     </div>
   </div>
